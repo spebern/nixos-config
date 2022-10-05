@@ -31,11 +31,11 @@
     packages = with pkgs; [
       # Terminal
       btop              # Resource Manager
-#      pfetch            # Minimal fetch
+      pfetch            # Minimal fetch
       ranger            # File Manager
       
       # Video/Audio
-      ristretto         # Image Viewer
+      feh               # Image Viewer
       mpv               # Media Player
       pavucontrol       # Audio control
       plex-media-player # Media Player
@@ -45,10 +45,10 @@
       # Apps
       firefox           # Browser
       google-chrome     # Browser
-#      remmina           # XRDP & VNC Client
+      remmina           # XRDP & VNC Client
 
       # File Management
-      evince            # PDF viewer
+      okular            # PDF viewer
       gnome.file-roller # Archive Manager
       pcmanfm           # File Manager
       rsync             # Syncer $ rsync -r dir1/ dir2/
@@ -56,11 +56,11 @@
       unrar             # Rar files
 
       # General configuration
-      git              # Repositories
-      killall          # Stop Applications
-      nano             # Text Editor
+      #git              # Repositories
+      #killall          # Stop Applications
+      #nano             # Text Editor
       #pciutils         # Computer utility info
-      pipewire         # Sound
+      #pipewire         # Sound
       #usbutils         # USB utility info
       #wacomtablet      # Wacom Tablet
       #wget             # Downloader
@@ -103,7 +103,7 @@
       # Desktop
       #blueman          # Bluetooth
       #deluge           # Torrents
-      discord          # Chat
+      #discord          # Chat
       #ffmpeg           # Video Support (dslr)
       #gmtp             # Mount MTP (GoPro)
       #gphoto2          # Digital Photography
@@ -121,7 +121,7 @@
       # Laptop
       #blueman          # Bluetooth
       #light            # Display Brightness
-      libreoffice      # Office Tools
+      #libreoffice      # Office Tools
       #simple-scan      # Scanning
       #
       # Flatpak

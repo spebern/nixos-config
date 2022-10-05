@@ -3,7 +3,7 @@
 #
 #  flake.nix
 #   ├─ ./hosts
-#   │   └─ ./blacky
+#   │   └─ ./laptop
 #   │        ├─ default.nix *
 #   │        └─ hardware-configuration.nix       
 #   └─ ./modules
@@ -24,25 +24,25 @@
     [(import ./hardware-configuration.nix)] ++            # Current system hardware config @ /etc/nixos/hardware-configuration.nix
     [(import ../../modules/desktop/hyprland/default.nix)] ++      # Window Manager
     [(import ../../modules/desktop/virtualisation/docker.nix)] ++  # Docker
-    (import ../../modules/desktop/virtualisation) ++      # Virtual Machines & VNC
     (import ../../modules/hardware);                      # Hardware devices
 
   boot = {                                  # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.kernelModules = [ "amdgpu" ];
 
-    boot = {                                      # Boot options
-      kernelPackages = pkgs.linuxPackages_latest;
-      #initrd.kernelModules = [ "amdgpu" ];       # Video drivers
-
-      loader = {                                  # For legacy boot:
-        systemd-boot = {
-          enable = true;
-          configurationLimit = 5;                 # Limit the amount of configurations
-        };
-        efi.canTouchEfiVariables = true;
-        timeout = 5;                              # auto select time
+    loader = {                              # EFI Boot
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
       };
+      grub = {                              # Most of grub is set up for dual boot
+        enable = true;
+        version = 2;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;                 # Find all boot options
+        configurationLimit = 2;
+      };
+      timeout = 1;                          # Grub auto select time
     };
   };
 
@@ -51,8 +51,8 @@
     extraBackends = [ pkgs.sane-airscan ];
   };
 
-  environment = {                               # Packages installed system wide
-    systemPackages = with pkgs; [               # This is because some options need to be configured.
+  environment = {
+    systemPackages = with pkgs; [
       simple-scan
     ];
   };
@@ -80,6 +80,17 @@
         userServices = true;
       };
     };
+    samba = {
+      enable = true;
+      shares = {
+        share = {
+          "path" = "/home/${user}";
+          "guest ok" = "no";
+          "read only" = "no";
+        };
+      };
+      openFirewall = true;
+    };
     #xserver = {
     #  libinput = {                          # Trackpad support & gestures
     #    touchpad = {
@@ -92,8 +103,9 @@
     #    };
     #  };
     #  resolutions = [
-    #    { x = 1920; y = 1200; }
-    #    { x = 2560; y = 1600; }
+    #    { x = 1600; y = 920; }
+    #    { x = 1280; y = 720; }
+    #    { x = 1920; y = 1080; }
     #  ];
     #};
   };

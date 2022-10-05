@@ -17,39 +17,36 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/107875b3-a1ab-4f28-99f4-8647758aca59";
+    { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/AB43-007E";
+    { device = "/dev/disk/by-uuid/6E06-6221";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/a79a05ee-7a16-48ad-ae76-2f38c9fd0626"; }
-    ];
-
-  networking =
-  } {
+  swapDevices = [ ];
+  
+  networking = {
     useDHCP = false;                        # Deprecated
-    hostName = "blacky";
+    hostName = "laptop";
     networkmanager.enable = true;
     interfaces = {
-      enp1s0f0 = {
+      enp0s25 = {
         useDHCP = true;                     # For versatility sake, manually edit IP on nm-applet.
         #ipv4.addresses = [ {
         #    address = "192.168.0.51";
         #    prefixLength = 24;
         #} ];
       };
-      wlp2s0 = {
+      wlo1 = {
         useDHCP = true;
         #ipv4.addresses = [ {
         #  address = "192.168.0.51";
@@ -57,8 +54,8 @@
         #} ];  
       };
     };
-#    defaultGateway = "192.168.0.1";
-#    nameservers = [ "192.168.0.4" ];
+    defaultGateway = "192.168.0.1";
+    nameservers = [ "192.168.0.4" ];
     firewall = {
       enable = false;
       #allowedUDPPorts = [ 53 67 ];
@@ -66,8 +63,4 @@
     };
   };
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
-}
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;  }

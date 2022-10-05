@@ -17,7 +17,7 @@
     })
   ];
 
-  home-manager.users.ac0v = {                           # Home-manager waybar config
+  home-manager.users.matthias = {                           # Home-manager waybar config
     programs.waybar = {
       enable = true;
       systemd ={

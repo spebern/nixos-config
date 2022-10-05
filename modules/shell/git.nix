@@ -6,8 +6,8 @@
   programs = {
     git = {
       enable = true;
-      userName = "ac0v";
-      userEmail = "ac0v@sys-network.de";
+      userName = "MatthiasBenaets";
+      userEmail = "matthias.benaets@gmail.com";
     };
   };
 }

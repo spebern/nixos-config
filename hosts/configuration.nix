@@ -25,12 +25,12 @@
   };
   security.sudo.wheelNeedsPassword = false; # User does not need to give password when using sudo.
 
-  time.timeZone = "Europe/Berlin";          # Time zone and internationalisation
+  time.timeZone = "Europe/Brussels";        # Time zone and internationalisation
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {                 # Extra locale settings that need to be overwritten
-      LC_TIME = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
+      LC_TIME = "nl_BE.UTF-8";
+      LC_MONETARY = "nl_BE.UTF-8";
     };
   };
 
@@ -64,8 +64,8 @@
   environment = {
     variables = {
       TERMINAL = "alacritty";
-      EDITOR = "emacs";
-      VISUAL = "emacs";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
     systemPackages = with pkgs; [           # Default packages install system-wide
       #vim
