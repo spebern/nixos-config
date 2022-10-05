@@ -28,21 +28,19 @@
 
   boot = {                                  # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
+    initrd.kernelModules = [ "amdgpu" ];
 
     loader = {                              # EFI Boot
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
       };
-      grub = {                              # Most of grub is set up for dual boot
+      systemd-boot = {
         enable = true;
-        version = 2;
-        devices = [ "nodev" ];
-        efiSupport = true;
-        useOSProber = true;                 # Find all boot options
-        configurationLimit = 2;
+        configurationLimit = 5;                 # Limit the amount of configurations
       };
-      timeout = 1;                          # Grub auto select time
+      efi.canTouchEfiVariables = true;
+      timeout = 5;                          # Grub auto select time
     };
   };
 
@@ -80,17 +78,6 @@
         userServices = true;
       };
     };
-    samba = {
-      enable = true;
-      shares = {
-        share = {
-          "path" = "/home/${user}";
-          "guest ok" = "no";
-          "read only" = "no";
-        };
-      };
-      openFirewall = true;
-    };
     #xserver = {
     #  libinput = {                          # Trackpad support & gestures
     #    touchpad = {
@@ -103,9 +90,8 @@
     #    };
     #  };
     #  resolutions = [
-    #    { x = 1600; y = 920; }
-    #    { x = 1280; y = 720; }
-    #    { x = 1920; y = 1080; }
+    #    { x = 1920; y = 1200; }
+    #    { x = 2560; y = 1600; }
     #  ];
     #};
   };
