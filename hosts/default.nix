@@ -6,7 +6,7 @@
 #       ├─ default.nix *
 #       ├─ configuration.nix
 #       ├─ home.nix
-#       └─ ./desktop OR ./laptop OR ./vm
+#       └─ ./blacky OR ...
 #            ├─ ./default.nix
 #            └─ ./home.nix 
 #
@@ -24,32 +24,12 @@ let
   lib = nixpkgs.lib;
 in
 {
-  desktop = lib.nixosSystem {                               # Desktop profile
-    inherit system;
-    specialArgs = { inherit inputs user location; }; # Pass flake variable
-    modules = [                                             # Modules that are used.
-      nur.nixosModules.nur
-      hyprland.nixosModules.default
-      ./desktop
-      ./configuration.nix
-
-      home-manager.nixosModules.home-manager {              # Home-Manager module that is used.
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user doom-emacs; };  # Pass flake variable
-        home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./desktop/home.nix)];
-        };
-      }
-    ];
-  };
-
-  laptop = lib.nixosSystem {                                # Laptop profile
+  blacky = lib.nixosSystem {                                # Laptop profile
     inherit system;
     specialArgs = { inherit inputs user location hyprland; };
     modules = [
       hyprland.nixosModules.default
-      ./laptop
+      ./blacky
       ./configuration.nix
 
       home-manager.nixosModules.home-manager {
@@ -57,25 +37,7 @@ in
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
-        };
-      }
-    ];
-  };
-
-  vm = lib.nixosSystem {                                    # VM profile
-    inherit system;
-    specialArgs = { inherit inputs user location; };
-    modules = [
-      ./vm
-      ./configuration.nix
-
-      home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user; }; 
-        home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./vm/home.nix)];
+          imports = [(import ./home.nix)] ++ [(import ./blacky/home.nix)];
         };
       }
     ];

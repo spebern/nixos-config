@@ -26,11 +26,6 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      darwin = {
-        url = "github:lnl7/nix-darwin/master";                              # MacOS Package Management
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
       nur = {
         url = "github:nix-community/NUR";                                   # NUR Packages
       };
@@ -57,9 +52,9 @@
       };
     };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nur, nixgl, doom-emacs, hyprland, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, nur, nixgl, doom-emacs, hyprland, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let                                                                     # Variables that can be used in the config files.
-      user = "matthias";
+      user = "ac0v";
       location = "$HOME/.setup";
     in                                                                      # Use above variables in ...
     {
@@ -67,13 +62,6 @@
         import ./hosts {                                                    # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs home-manager nur user location doom-emacs hyprland;   # Also inherit home-manager so it does not need to be defined here.
-        }
-      );
-
-      darwinConfigurations = (                                              # Darwin Configurations
-        import ./darwin {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager darwin user;
         }
       );
 
