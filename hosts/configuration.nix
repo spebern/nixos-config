@@ -29,8 +29,8 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {                 # Extra locale settings that need to be overwritten
-      LC_TIME = "nl_BE.UTF-8";
-      LC_MONETARY = "nl_BE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
     };
   };
 
