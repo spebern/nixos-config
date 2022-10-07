@@ -67,26 +67,12 @@ in
       };
 
       output = {
-        "*".bg = "~/.config/wall fill";#
-        "*".scale = "1";#
-        "DP-2".mode = "1920x1080";
-        "DP-2".pos = "0 0";
-        "HDMI-A-2".mode = "1920x1080";
-        "HDMI-A-2".pos = "1920 0";
-        "HDMI-A-1".mode = "1280x1024";
-        "HDMI-A-1".pos = "3840 0";
+        "eDP-1".bg = "~/.config/wall fill";
+        "eDP-1".scale = "1.5";
+        "eDP-1".mode = "2560x1600";
+        "eDP-1".pos = "0 0";
       };
       
-      workspaceOutputAssign = lib.mkIf (hostName == "desktop") [
-        {output = "HDMI-A-2"; workspace = "2";}
-        {output = "DP-2"; workspace = "1";}
-        {output = "HDMI-A-1"; workspace = "3";}
-        {output = "HDMI-A-2"; workspace = "5";}
-        {output = "DP-2"; workspace = "4";}
-        {output = "HDMI-A-1"; workspace = "6";}
-      ];
-      defaultWorkspace = "workspace number 2";
-
       colors.focused = {
         background = "#999999";
         border = "#999999";
@@ -98,7 +84,8 @@ in
       keybindings = {                                   # Hotkeys
         "${modifier}+Escape" = "exec swaymsg exit";     # Exit Sway
         "${modifier}+Return" = "exec ${terminal}";      # Open terminal
-        "${modifier}+space" = "exec ${menu}";           # Open menu
+
+        "${modifier}+d" = "exec ${menu}";           # Open menu
         "${modifier}+e" = "exec ${pkgs.pcmanfm}/bin/pcmanfm"; # File Manager
         "${modifier}+l" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy"; # Lock Screen
 

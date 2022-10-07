@@ -17,7 +17,7 @@
     })
   ];
 
-  home-manager.users.${user} = {                           # Home-manager waybar config
+  home-manager.users.ac0v = {                           # Home-manager waybar config
     programs.waybar = {
       enable = true;
       systemd ={
@@ -83,16 +83,14 @@
         position = "top";
         height = 16;
         output = [
-          #"eDP-1"
-          "DP-2"
-          "HDMI-A-2"
+          "eDP-1"
         ];
         tray = { spacing = 10; };
         #modules-center = [ "clock" ];
         #modules-left = [ "sway/workspaces" "sway/window" "sway/mode" ];
         #modules-left = [ "wlr/workspaces" ];
-        #modules-right = [ "cpu" "memory" "disk" "pulseaudio" "battery" "network" "tray" ];
-        modules-right = [ "cpu" "memory" "pulseaudio" "clock" "tray" ];
+        modules-right = [ "cpu" "memory" "disk" "pulseaudio" "battery" "network" "tray" ];
+        #modules-right = [ "cpu" "memory" "pulseaudio" "clock" "tray" ];
 
         "sway/workspaces" = {
           format = "<span font='12'>{icon}</span>";
