@@ -49,7 +49,7 @@
         #} ];
       };
       wlp2s0 = {
-        useDHCP = true;
+        useDHCP = false;
         #ipv4.addresses = [ {
         #  address = "192.168.0.51";
         #  prefixLength = 24;

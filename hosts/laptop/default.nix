@@ -51,8 +51,11 @@
   environment = {
     systemPackages = with pkgs; [
       simple-scan
+      iwd
     ];
   };
+
+  networking.networkmanager.wifi.backend = "iwd";
 
   programs = {                              # No xbacklight, this is the alterantive
     dconf.enable = true;
