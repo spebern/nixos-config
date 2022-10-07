@@ -39,7 +39,6 @@
         enable = true;
         configurationLimit = 5;                 # Limit the amount of configurations
       };
-      efi.canTouchEfiVariables = true;
       timeout = 5;                          # Grub auto select time
     };
   };

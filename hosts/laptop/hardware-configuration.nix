@@ -36,8 +36,7 @@
     [ { device = "/dev/disk/by-uuid/a79a05ee-7a16-48ad-ae76-2f38c9fd0626"; }
     ];
 
-  networking =
-  } {
+  networking = {
     useDHCP = false;                        # Deprecated
     hostName = "blacky";
     networkmanager.enable = true;
