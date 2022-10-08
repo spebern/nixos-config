@@ -1,36 +1,12 @@
-#
-#  Specific system configuration settings for desktop
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./desktop
-#   │        ├─ default.nix *
-#   │        └─ hardware-configuration.nix
-#   └─ ./modules
-#       ├─ ./desktop
-#       │   ├─ ./bspwm
-#       │   │   └─ bspwm.nix
-#       │   └─ ./virtualisation
-#       │       └─ default.nix
-#       ├─ ./programs
-#       │   └─ games.nix
-#       ├─ ./services
-#       │   └─ default.nix
-#       └─ ./hardware
-#           └─ default.nix
-#
-
 { pkgs, lib, user, ... }:
 
 {
-  imports =                                               # For now, if applying to other system, swap files
-    [(import ./hardware-configuration.nix)] ++            # Current system hardware config @ /etc/nixos/hardware-configuration.nix
-    [(import ../../modules/programs/games.nix)] ++        # Gaming
-    [(import ../../modules/desktop/bspwm/default.nix)] ++   # Window Manager
-    #[(import ../../modules/desktop/hyprland/default.nix)] ++ # Window Manager
-    #[(import ../../modules/desktop/gnome/default.nix)] ++ # Desktop Environment
-    (import ../../modules/desktop/virtualisation) ++      # Virtual Machines & VNC
-    (import ../../modules/hardware);                      # Hardware devices
+  imports =
+    [(import ./hardware-configuration.nix)] ++
+    [(import ../../modules/programs/games.nix)] ++
+    [(import ../../modules/desktop/sway/default.nix)] ++
+    (import ../../modules/desktop/virtualisation) ++
+    (import ../../modules/hardware);
 
   boot = {                                      # Boot options
     kernelPackages = pkgs.linuxPackages_latest;
