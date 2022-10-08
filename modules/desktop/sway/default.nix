@@ -1,16 +1,3 @@
-#
-#  Sway configuration
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./laptop
-#   │       └─ default.nix
-#   └─ ./modules
-#       └─ ./desktop
-#           └─ ./sway
-#               └─ sway.nix *
-#
-
 { config, lib, pkgs, ... }:
 
 {
@@ -31,14 +18,14 @@
   };
 
   programs = {
-    sway = {                              # Tiling Wayland compositor & window manager
+    sway = {
       enable = true;
       extraPackages = with pkgs; [
-        autotiling      # Tiling Script
-        swayidle        # Idle Management Daemon
-        wev             # Input viewer
-        wl-clipboard    # Commandline Clipboard #alternative clipman/wayclip
-        kanshi          # Autorandr #not needed with single laptopscreen. need to find something like arandr
+        autotiling
+        swayidle
+        wev
+        wl-clipboard
+        kanshi
         xwayland
         wayvnc
       ];
