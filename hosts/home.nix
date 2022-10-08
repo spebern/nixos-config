@@ -126,10 +126,6 @@
       #
       # Flatpak
       #obs-studio       # Recording/Live Streaming
-
-      jetbrains.clion
-      jetbrains.phpstorm
-      jetbrains.idea-ultimate
     ];
     file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {                         # This will set cursor systemwide so applications can not choose their own
