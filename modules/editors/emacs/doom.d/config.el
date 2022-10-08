@@ -6,8 +6,10 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-;;(setq user-full-name "ac0v"
-;;      user-mail-address "ac0v@sys-network.de")
+(setq user-full-name "Bernhard Specht"
+      user-mail-address "bernhard@specht.net"
+
+      display-line-numbers-type nil)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,7 +21,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+(setq doom-font (font-spec :family "Source Code Pro" :size 13))
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -29,12 +31,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
+(setq org-directory "~/Nextcloud/org/")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -53,42 +50,103 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Bullet UTF-8 icons for org documents
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; rust
+(after! rustic
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  (setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
+  (setq lsp-rust-analyzer-proc-macro-enable t)
+                                        ;  (setq lsp-rust-analyzer-display-chaining-hints t)
+                                        ;  (setq lsp-rust-analyzer-display-parameter-hints t)
+                                        ;  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-all-features t)
+  (setq lsp-rust-full-docs t))
 
-;; Change specific characters to unicode symbols
-(defun my/org-mode/load-prettify-symbols ()
-  (interactive)
-  (setq prettify-symbols-alist
-  	(mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-    		'(("lambda" . ?λ)
-		 ("|>" . ?▷)
-		 ("<|" . ?◁)
-		 ("->>" . ?↠)
-		 ("->" . ?→)
-		 ("<-" . ?←)
-		 ("=>" . ?⇒)
-		 ("<=" . ?≤)
-		 (">=" . ?≥))))
-	(prettify-symbols-mode 1))
-(add-hook 'org-mode-hook 'my/org-mode/load-prettify-symbols)
+(setq org-journal-encrypt-journal t)
+(setq org-journal-dir "~/Nextcloud/org")
 
-;; Set height of bullets
-(custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.20))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.12))))
-  '(org-level-4 ((t (:inherit outline-4 :height 1.08))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.05))))
-)
+(setq +latex-viewers '(zathura))
+(setq latex-preview-pane-use-frame t)
+
+(add-hook 'vue-mode-local-vars-hook #'lsp!)
+
+(use-package! vue-mode
+  :ensure t)
+
+(use-package! vue-html-mode
+  :mode ("/\\.vue$"))
+
+(use-package! cperl-mode
+  :mode ("/\\.pm$" "/\\.pl$" "/\\.t$"))
+
+(eval-after-load "org"
+  '(require 'ox-confluence nil t))
+
+(use-package! protobuf-mode)
+
+(setq-default org-download-image-dir "~/Nextcloud/org/images")
+(setq-default org-roam-directory "~/Nextcloud/org")
+
+(setq-hook! 'vue-mode-hook +format-with-lsp nil)
+
+;; org babel http
+(use-package! ob-http)
+
+(setq wl-copy-process nil)
+(defun wl-copy (text)
+  (setq wl-copy-process (make-process :name "wl-copy"
+                                      :buffer nil
+                                      :command '("wl-copy" "-f" "-n")
+                                      :connection-type 'pipe))
+  (process-send-string wl-copy-process text)
+  (process-send-eof wl-copy-process))
+
+(defun wl-paste ()
+  (if (and wl-copy-process (process-live-p wl-copy-process))
+      nil ; should return nil if we're the current paste owner
+    (shell-command-to-string "wl-paste -n")))
+(setq interprogram-cut-function 'wl-copy)
+(setq interprogram-paste-function 'wl-paste)
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
+
+(after! rustic
+  (set-popup-rule! "^\\*cargo" :size 0.5))
+(setq rustic-cargo-test-disable-warnings t)
+
+(setq! citar-bibliography '("~/Nextcloud/references.bib"))
 
 
-;; org-babel-tangle languages
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((yaml . t)))
+(setq org-image-actual-width (list 550))
+(setq leetcode-prefer-language "python3")
+(setq leetcode-prefer-sql "mysql")
+(setq leetcode-save-solutions t)
+(setq leetcode-directory "~/leetcode")
+(add-hook 'leetcode-solution-mode-hook
+          (lambda() (flycheck-mode -1)))
 
-(setq org-confirm-babel-evaluate nil)
+(after! go-mode
+  (setq gofmt-command "goimports")
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'gofmt nil 'make-it-local))))
 
-(add-hook! 'emacs-startup-hook #'doom-init-ui-h)
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)))
+
+(use-package! org-modern
+  :hook (org-mode . global-org-modern-mode)
+  :config
+  (setq org-modern-label-border 0.3))
+
+(setq bookmark-default-file "~/Nextcloud/bookmarks")
+
+(load! "+bindings.el")
