@@ -25,7 +25,6 @@
 |-----------------+-------------------+-------------------+-------------------|
 | *Shell*         | Zsh               | Zsh               | Zsh               |
 | *DM*            | LightDM           | TTY1 Login        | /                 |
-| *WM*            | Bspwm             | Hyprland          | Yabai             |
 | *Compositor*    | Picom (jonaburg)  | Hyprland          | /                 |
 | *Bar*           | Polybar           | Waybar            | /                 |
 | *Hotkeys*       | Sxhkd             | Hyprland          | Skhd              |
