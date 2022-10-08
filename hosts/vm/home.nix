@@ -16,7 +16,7 @@
 {
   imports =
     [
-      ../../modules/desktop/bspwm/home.nix  #Window Manager
+      ../../modules/desktop/sway/home.nix
     ];
 
   home = {                                  # Specific packages for desktop
