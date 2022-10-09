@@ -48,12 +48,7 @@ in
         };
       };
 
-      output = {
-        "eDP-1".bg = "~/.config/wall fill";
-        "eDP-1".scale = "1.5";
-        "eDP-1".mode = "2560x1600";
-        "eDP-1".pos = "0 0";
-      };
+      output = {};
       
       colors.focused = {
         background = "#999999";
