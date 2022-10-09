@@ -14,6 +14,7 @@ in
 
       startup = [                                       # Run commands on Sway startup
         {command = "${pkgs.autotiling}/bin/autotiling"; always = true;} # Tiling Script
+        {command = "${pkgs.waybar}/bin/waybar"; always = true;} # Tiling Script
         {command = ''
          ${pkgs.swayidle}/bin/swayidle -w \
              before-sleep '${pkgs.swaylock-fancy}/bin/swaylock-fancy'
