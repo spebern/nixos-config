@@ -120,7 +120,7 @@ in
       for_window [app_id=".blueman-manager-wrapped"] floating enable
     '';                                    # $ swaymsg -t get_tree or get_outputs
     extraSessionCommands = ''
-      #export WLR_NO_HARDWARE_CURSORS="1";  # Needed for cursor in vm
+      export WLR_NO_HARDWARE_CURSORS="1";  # Needed for cursor in vm
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=sway
       export XDG_CURRENT_DESKTOP=sway
