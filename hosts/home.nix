@@ -62,4 +62,15 @@
       name = "JetBrains Mono Medium";         # or FiraCode Nerd Font Mono Medium
     };                                        # Cursor is declared under home.pointerCursor
   };
+
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.sway}/bin/sway";
+        user = "${user}";
+      };
+      default_session = initial_session;
+    };
+  };
 }
