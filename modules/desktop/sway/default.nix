@@ -7,8 +7,7 @@
 
   environment = {
     variables = {
-      #LIBCL_ALWAYS_SOFTWARE = "1";       # For applications in VM like alacritty to work
-      #WLR_NO_HARDWARE_CURSORS = "1";     # For cursor in VM
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 
