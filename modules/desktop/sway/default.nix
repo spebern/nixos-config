@@ -25,6 +25,9 @@
         wayvnc
       ];
     };
+    waybar = {
+      enable = true;
+    };
   };
   networking.firewall.allowedTCPPorts = [ 5900 ];   # Used for vnc
 
