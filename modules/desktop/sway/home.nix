@@ -34,19 +34,7 @@ in
         size = 10.0;
       };
 
-      input = {                                         # Input modules: $ man sway-input
-        "type:touchpad" = {
-          tap = "disabled";
-          dwt = "enabled";
-          scroll_method = "two_finger";
-          middle_emulation = "enabled";
-          natural_scroll = "enabled";
-        };
-        "type:keyboard" = {
-          xkb_layout = "us";
-          xkb_numlock = "enabled";
-        };
-      };
+      input = {};
 
       output = {};
       
