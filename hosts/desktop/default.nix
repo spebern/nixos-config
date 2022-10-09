@@ -4,6 +4,7 @@
   imports =
     [(import ./hardware-configuration.nix)] ++
     [(import ../../modules/programs/games.nix)] ++
+    [(import ../../modules/services/greetd.nix)] ++
     [(import ../../modules/desktop/sway/default.nix)] ++
     (import ../../modules/desktop/virtualisation) ++
     (import ../../modules/hardware);
