@@ -9,7 +9,7 @@
     waybar
   ];
 
-  nixpkgs.overlays = [                                      # Waybar needs to be compiled with the experimental flag for wlr/workspaces to work
+  nixpkgs.overlays = [
     (self: super: {
       waybar = super.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -17,12 +17,12 @@
     })
   ];
 
-  home-manager.users.bold = {                           # Home-manager waybar config
+  home-manager.users.bold = {
     programs.waybar = {
       enable = true;
       systemd ={
         enable = true;
-        target = "sway-session.target";                     # Needed for waybar to start automatically
+        target = "sway-session.target";
       };
 
       style = ''
