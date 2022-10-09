@@ -71,7 +71,7 @@ in
         "${modifier}+l" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy"; # Lock Screen
 
         "${modifier}+r" = "reload";                     # Reload environment
-        "${modifier}+Shuft+q" = "kill";                       # Kill container
+        "${modifier}+Shift+q" = "kill";                       # Kill container
         "${modifier}+f" = "fullscreen toggle";          # Fullscreen
         "${modifier}+h" = "floating toggle";            # Floating
 
