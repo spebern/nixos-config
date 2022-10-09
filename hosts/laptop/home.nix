@@ -1,35 +1,16 @@
-#
-#  Home-manager configuration for laptop
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./laptop
-#   │       └─ home.nix *
-#   └─ ./modules
-#       └─ ./desktop
-#           └─ ./hyprland
-#              └─ hyprland.nix
-#
-
 { pkgs, ... }:
 
 {
   imports =
     [
-      ../../modules/desktop/sway/home.nix # Window Manager
+      ../../modules/desktop/sway/home.nix
     ];
 
-  home = {                                # Specific packages for laptop
+  home = {
     packages = with pkgs; [
-      # Applications
-      libreoffice                         # Office packages
-
-      # Display
-      #light                              # xorg.xbacklight not supported. Other option is just use xrandr.
-
       # Power Management
-      #auto-cpufreq                       # Power management
-      #tlp                                # Power management
+      auto-cpufreq
+      tlp
     ];
   };
 
@@ -37,14 +18,14 @@
     alacritty.settings.font.size = 11;
   };
 
-  services = {                            # Applets
-    blueman-applet.enable = true;         # Bluetooth
-#   network-manager-applet.enable = true; # Network
-#   cbatticon = {
-#     enable = true;
-#     criticalLevelPercent = 10;
-#     lowLevelPercent = 20;
-#     iconType = null;
-#   };
+  services = {
+    blueman-applet.enable = true;
+    network-manager-applet.enable = true;
+    cbatticon = {
+      enable = true;
+      criticalLevelPercent = 10;
+      lowLevelPercent = 20;
+      iconType = null;
+   };
   };
 }

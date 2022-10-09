@@ -1,16 +1,3 @@
-#
-#  These are the different profiles that can be used when building NixOS.
-#
-#  flake.nix 
-#   └─ ./hosts  
-#       ├─ default.nix *
-#       ├─ configuration.nix
-#       ├─ home.nix
-#       └─ ./desktop OR ./laptop OR ./vm
-#            ├─ ./default.nix
-#            └─ ./home.nix 
-#
-
 { lib, inputs, nixpkgs, home-manager, nur, user, location, doom-emacs, hyprland, ... }:
 
 let
@@ -24,7 +11,7 @@ let
   lib = nixpkgs.lib;
 in
 {
-  desktop = lib.nixosSystem {                               # Desktop profile
+  desktop = lib.nixosSystem {
     inherit system;
     specialArgs = { inherit inputs user location; }; # Pass flake variable
     modules = [                                             # Modules that are used.
@@ -44,7 +31,7 @@ in
     ];
   };
 
-  laptop = lib.nixosSystem {                                # Laptop profile
+  laptop = lib.nixosSystem {
     inherit system;
     specialArgs = { inherit inputs user location hyprland; };
     modules = [
@@ -63,7 +50,7 @@ in
     ];
   };
 
-  vm = lib.nixosSystem {                                    # VM profile
+  vm = lib.nixosSystem {
     inherit system;
     specialArgs = { inherit inputs user location; };
     modules = [

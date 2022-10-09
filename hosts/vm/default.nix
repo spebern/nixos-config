@@ -1,17 +1,3 @@
-#
-#  Specific system configuration settings for desktop
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./vm
-#   │       ├─ default.nix *
-#   │       └─ hardware-configuration.nix
-#   └─ ./modules
-#       └─ ./desktop
-#           └─ ./bspwm
-#               └─ bspwm.nix
-#
-
 { config, pkgs, ... }:
 
 {
@@ -19,16 +5,16 @@
     [(import ./hardware-configuration.nix)] ++
     [(import ../../modules/desktop/sway/default.nix)];
 
-  boot = {                                      # Boot options
+  boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    loader = {                                  # For legacy boot:
+    loader = {
       grub = {
         enable = true;
         version = 2;
-        device = "/dev/vda";                    # Name of harddrive (can also be vda)
+        device = "/dev/vda";
       };
-      timeout = 1;                              # Grub auto select time
+      timeout = 1;
     };
   };
 }

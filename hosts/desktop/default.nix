@@ -8,42 +8,37 @@
     (import ../../modules/desktop/virtualisation) ++
     (import ../../modules/hardware);
 
-  boot = {                                      # Boot options
+  boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     #initrd.kernelModules = [ "amdgpu" ];       # Video drivers
     
-    loader = {                                  # For legacy boot:
+    loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 5;                 # Limit the amount of configurations
+        configurationLimit = 5;
       };
       efi.canTouchEfiVariables = true;
-      timeout = 1;                              # Grub auto select time
+      timeout = 1;
     };
   };
 
   hardware = {
-    sane = {                                    # Used for scanning with Xsane
+    sane = {
       enable = true;
       extraBackends = [ pkgs.sane-airscan ];
     };
   };
 
-  environment = {                               # Packages installed system wide
-    systemPackages = with pkgs; [               # This is because some options need to be configured.
-      discord
-      #plex
-      simple-scan
-      x11vnc
-      wacomtablet
+  environment = {
+    systemPackages = with pkgs; [
     ];
   };
 
   services = {
-    blueman.enable = true;                      # Bluetooth
-    printing = {                                # Printing and drivers for TS5300
+    blueman.enable = true;
+    printing = {
       enable = true;
-      drivers = [ pkgs.cnijfilter2 ];           # There is the possibility cups will complain about missing cmdtocanonij3. I guess this is just an error that can be ignored for now.
+      drivers = [ pkgs.cnijfilter2 ];
     };
     avahi = {                                   # Needed to find wireless printer
       enable = true;
@@ -53,17 +48,6 @@
         addresses = true;
         userServices = true;
       };
-    };
-    samba = {                                   # File Sharing over local network
-      enable = true;                            # Don't forget to set a password:  $ smbpasswd -a <user>
-      shares = {
-        share = {
-          "path" = "/home/${user}";
-          "guest ok" = "yes";
-          "read only" = "no";
-        };
-      };
-      openFirewall = true;
     };
   };
 

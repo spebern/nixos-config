@@ -1,11 +1,3 @@
-#
-# These are the diffent profiles that can be used when building Nix.
-#
-# flake.nix
-#   └─ ./nix
-#       └─ default.nix *
-#
-
 { lib, inputs, nixpkgs, home-manager, nixgl, user, ... }:
 
 {

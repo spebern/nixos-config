@@ -1,12 +1,3 @@
-#
-# Nix setup using Home-manager
-#
-# flake.nix
-#   └─ ./nix
-#       ├─ default.nix
-#       └─ pacman.nix *
-#
-
 { config, pkgs, inputs, nixgl, user, ... }:
 
 {

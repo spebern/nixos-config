@@ -1,49 +1,30 @@
-#
-#  Specific system configuration settings for desktop
-#
-#  flake.nix
-#   ├─ ./hosts
-#   │   └─ ./laptop
-#   │        ├─ default.nix *
-#   │        └─ hardware-configuration.nix       
-#   └─ ./modules
-#       ├─ ./desktop
-#       │   └─ ./hyprland
-#       │       └─ hyprland.nix
-#       ├─ ./modules
-#       │   └─ ./programs
-#       │       └─ waybar.nix
-#       └─ ./hardware
-#           └─ default.nix
-#
-
 { config, pkgs, user, ... }:
 
 {
-  imports =                                 # For now, if applying to other system, swap files
-    [(import ./hardware-configuration.nix)] ++            # Current system hardware config @ /etc/nixos/hardware-configuration.nix
-    [(import ../../modules/desktop/sway/default.nix)] ++      # Window Manager
-    [(import ../../modules/desktop/virtualisation/docker.nix)] ++  # Docker
-    (import ../../modules/hardware);                      # Hardware devices
+  imports =
+    [(import ./hardware-configuration.nix)] ++
+    [(import ../../modules/desktop/sway/default.nix)] ++
+    [(import ../../modules/desktop/virtualisation/docker.nix)] ++
+    (import ../../modules/hardware);
 
-  boot = {                                  # Boot options
+  boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ "amdgpu" ];
 
-    loader = {                              # EFI Boot
+    loader = {
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
       };
       systemd-boot = {
         enable = true;
-        configurationLimit = 5;                 # Limit the amount of configurations
+        configurationLimit = 5;
       };
-      timeout = 5;                          # Grub auto select time
+      timeout = 5;
     };
   };
 
-  hardware.sane = {                           # Used for scanning with Xsane
+  hardware.sane = {
     enable = true;
     extraBackends = [ pkgs.sane-airscan ];
   };
@@ -57,13 +38,13 @@
 
   networking.networkmanager.wifi.backend = "iwd";
 
-  programs = {                              # No xbacklight, this is the alterantive
+  programs = {
     dconf.enable = true;
     light.enable = true;
   };
 
   services = {
-    tlp.enable = true;                      # TLP and auto-cpufreq for power management
+    tlp.enable = true;                       # TLP and auto-cpufreq for power management
     #logind.lidSwitch = "ignore";            # Laptop does not go to sleep when lid is closed
     auto-cpufreq.enable = true;
     blueman.enable = true;
@@ -80,22 +61,6 @@
         userServices = true;
       };
     };
-    #xserver = {
-    #  libinput = {                          # Trackpad support & gestures
-    #    touchpad = {
-    #      tapping = true;
-    #      scrollMethod = "twofinger";
-    #      naturalScrolling = true;            # The correct way of scrolling
-    #      accelProfile = "adaptive";          # Speed settings
-    #      #accelSpeed = "-0.5";
-    #      disableWhileTyping = true;
-    #    };
-    #  };
-    #  resolutions = [
-    #    { x = 1920; y = 1200; }
-    #    { x = 2560; y = 1600; }
-    #  ];
-    #};
   };
 
   #temporary bluetooth fix
