@@ -7,7 +7,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "boot.shell_on_fail" ]
+    kernelParams = [ "boot.shell_on_fail" ];
 
     loader = {
       grub = {
