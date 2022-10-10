@@ -34,7 +34,6 @@
       discord
       ffmpeg
       libreoffice
-      greetd
     ];
     file.".config/wall".source = ../modules/themes/wall;
     pointerCursor = {                         # This will set cursor systemwide so applications can not choose their own
